@@ -17,7 +17,7 @@ public class BestScoreText : MonoBehaviour
     }
 
     private void RenderPlayerName() {
-        playerName = ScoreManager.Instance.GetPlayerName();
+        playerName = PlayerName.Instance.GetPlayerName();
         if (playerName != null) {
             uiText.text = "Best Score : " + playerName + " : 0";
         }

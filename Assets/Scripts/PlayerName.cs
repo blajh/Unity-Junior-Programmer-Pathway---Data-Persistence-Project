@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviour
+public class PlayerName : MonoBehaviour
 {
-    public static ScoreManager Instance;
+    public static PlayerName Instance;
 
     [SerializeField] private TMP_InputField input;
 
