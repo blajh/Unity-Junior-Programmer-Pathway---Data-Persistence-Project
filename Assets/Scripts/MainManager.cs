@@ -7,37 +7,43 @@ using UnityEngine.UI;
 public class MainManager : MonoBehaviour
 {
     public Brick BrickPrefab;
+    public GameObject BrickParent;
     public int LineCount = 6;
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public Text HighScoreText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
     private int m_Points;
-    
-    private bool m_GameOver = false;
+        
+    private bool m_GameOver = false;    
 
-    
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
+
+        InstantiateBricks();
+             
+        RenderHighScoreUI();
+        Debug.Log("Scene started with high score: " + PlayerNameAndScore.Instance.GetHighScore());
+    }
+
+    private void InstantiateBricks() {
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
-        
-        int[] pointCountArray = new [] {1,1,2,2,5,5};
-        for (int i = 0; i < LineCount; ++i)
-        {
-            for (int x = 0; x < perLine; ++x)
-            {
+
+        int[] pointCountArray = new[] { 1, 1, 2, 2, 5, 5 };
+        for (int i = 0; i < LineCount; ++i) {
+            for (int x = 0; x < perLine; ++x) {
                 Vector3 position = new Vector3(-1.5f + step * x, 2.5f + i * 0.3f, 0);
-                var brick = Instantiate(BrickPrefab, position, Quaternion.identity);
+                var brick = Instantiate(BrickPrefab, position, Quaternion.identity, BrickParent.transform);
                 brick.PointValue = pointCountArray[i];
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
     }
-
+    
     private void Update()
     {
         if (!m_Started)
@@ -70,7 +76,37 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        CheckHighScore();
         m_GameOver = true;
         GameOverText.SetActive(true);
+    }
+
+    private void CheckHighScore() {
+        if (m_Points > PlayerNameAndScore.Instance.GetHighScore()) {
+            Debug.Log("New high score:"  + m_Points);            
+            NewHighScore();
+        }
+    }
+
+    private void NewHighScore() {
+        SetHighScore();
+        RenderHighScoreUI();
+        SaveHighScore();
+    }
+
+    private void SetHighScore() {
+        PlayerNameAndScore.Instance.SetHighScore(m_Points);
+        Debug.Log("Set new high score: " + PlayerNameAndScore.Instance.GetHighScore());
+    }
+
+    private void RenderHighScoreUI() {
+        
+        HighScoreText.text = "Best Score : " + PlayerNameAndScore.Instance.GetPlayerName() + " : " + PlayerNameAndScore.Instance.GetHighScore();
+        Debug.Log("Rendered UI score set to :" + PlayerNameAndScore.Instance.GetHighScore());
+        
+    }
+
+    private void SaveHighScore() {
+        
     }
 }

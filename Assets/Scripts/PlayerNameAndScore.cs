@@ -6,18 +6,19 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 
-public class PlayerName : MonoBehaviour
+public class PlayerNameAndScore : MonoBehaviour
 {
-    public static PlayerName Instance;
+    public static PlayerNameAndScore Instance;
 
     [SerializeField] private TMP_InputField input;
 
     private string playerName;
+    private int highScore;
 
     private void Awake() {
 
         if (Instance != null && Instance != this) {
-            Destroy(this);
+            Destroy(this.gameObject);
         } else {
             Instance = this;
         }
@@ -45,5 +46,15 @@ public class PlayerName : MonoBehaviour
 
     public string GetPlayerName() {
         return playerName;
+    }
+
+    public int GetHighScore() {
+        return highScore;
+    }
+
+    public void SetHighScore(int score) {
+        if (score > highScore) {
+            highScore = score;
+        }
     }
 }
