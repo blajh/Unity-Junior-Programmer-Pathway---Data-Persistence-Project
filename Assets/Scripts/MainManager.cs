@@ -26,7 +26,7 @@ public class MainManager : MonoBehaviour
         InstantiateBricks();
              
         RenderHighScoreUI();
-        Debug.Log("Scene started with high score: " + PlayerNameAndScore.Instance.GetHighScore());
+        Debug.Log("Scene started with high score: " + GameData.Instance.GetHighScore());
     }
 
     private void InstantiateBricks() {
@@ -82,7 +82,7 @@ public class MainManager : MonoBehaviour
     }
 
     private void CheckHighScore() {
-        if (m_Points > PlayerNameAndScore.Instance.GetHighScore()) {
+        if (m_Points > GameData.Instance.GetHighScore()) {
             Debug.Log("New high score:"  + m_Points);            
             NewHighScore();
         }
@@ -95,14 +95,14 @@ public class MainManager : MonoBehaviour
     }
 
     private void SetHighScore() {
-        PlayerNameAndScore.Instance.SetHighScore(m_Points);
-        Debug.Log("Set new high score: " + PlayerNameAndScore.Instance.GetHighScore());
+        GameData.Instance.SetHighScore(m_Points);
+        Debug.Log("Set new high score: " + GameData.Instance.GetHighScore());
     }
 
     private void RenderHighScoreUI() {
         
-        HighScoreText.text = "Best Score : " + PlayerNameAndScore.Instance.GetPlayerName() + " : " + PlayerNameAndScore.Instance.GetHighScore();
-        Debug.Log("Rendered UI score set to :" + PlayerNameAndScore.Instance.GetHighScore());
+        HighScoreText.text = "Best Score : " + GameData.Instance.GetPlayerName() + " : " + GameData.Instance.GetHighScore();
+        Debug.Log("Rendered UI score set to :" + GameData.Instance.GetHighScore());
         
     }
 
