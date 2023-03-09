@@ -23,8 +23,7 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
 
-        InstantiateBricks();
-             
+        InstantiateBricks();        
         RenderHighScoreUI();
         Debug.Log("Scene started with high score: " + GameData.Instance.GetHighScore());
     }
@@ -90,23 +89,25 @@ public class MainManager : MonoBehaviour
 
     private void NewHighScore() {
         SetHighScore();
-        RenderHighScoreUI();
-        SaveHighScore();
+        RenderNewHighScoreUI();
     }
 
     private void SetHighScore() {
-        GameData.Instance.SetHighScore(m_Points);
+        GameData.Instance.SetNewHighScore(m_Points);
         Debug.Log("Set new high score: " + GameData.Instance.GetHighScore());
     }
 
     private void RenderHighScoreUI() {
         
-        HighScoreText.text = "Best Score : " + GameData.Instance.GetPlayerName() + " : " + GameData.Instance.GetHighScore();
+        HighScoreText.text = "Best Score : " + GameData.Instance.GetHighScorePlayerName() + " : " + GameData.Instance.GetHighScore();
         Debug.Log("Rendered UI score set to :" + GameData.Instance.GetHighScore());
         
     }
 
-    private void SaveHighScore() {
-        
+    private void RenderNewHighScoreUI() {
+
+        HighScoreText.text = "Best Score : " + GameData.Instance.GetPlayerName() + " : " + GameData.Instance.GetHighScore();
+        Debug.Log("Rendered UI score set to :" + GameData.Instance.GetHighScore());
+
     }
 }
