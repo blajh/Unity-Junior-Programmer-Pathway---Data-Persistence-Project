@@ -26,7 +26,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     public void LoadStartLevel() {
-        playerName = GetPlayerName();
+        playerName = SetPlayerNameFromInputField();
         SceneManager.LoadScene(1);
     }
 
@@ -39,7 +39,11 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    private string GetPlayerName() {
+    private string SetPlayerNameFromInputField() {
         return input.text;
+    }
+
+    public string GetPlayerName() {
+        return playerName;
     }
 }
